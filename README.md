@@ -11,9 +11,7 @@ hessenbergQRUpdate uses a QR decomposition on a given Hessenberg matrix H and th
 
 shiftHess introduces a spectral shift in a given Hessenberg matrix and then runs hessenbergQRUpdate on the new matrix (To-Do)
 
-Balance takes a matrix A and outputs a balanced form of matrix A with reduced sensitivity of eigenvalues to rounding errors
-
-UpperHessenberg takes a matrix A (if real and nonsymmetric) and replaces it with an upper Hessenberg matrix that contains identical eigenvalues  
+balance takes a matrix A and outputs a balanced form of matrix A with reduced sensitivity of eigenvalues to rounding errors (To-Do)
 
 matrixFunctions is header file for these functions and also holds the global constant that controls the array size - note that all matrices are assumed to be square
 

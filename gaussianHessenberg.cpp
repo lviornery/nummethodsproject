@@ -3,7 +3,7 @@
 #define SWAP(g,h) {val=(g);(g)=(h);(h)=val;}
 
 void gaussianHessenberg(double A[ARRAYSIZE][ARRAYSIZE]){
-	//takes A and turns it into a Hessenberg matrix using pseudo-gaussian elimination
+	//This function takes in a matrix A and turns it into a Hessenberg matrix using pseudo-gaussian elimination
 	int i,j,k; // counters
 	int imax, swaprow;
 	double max, val, mult;

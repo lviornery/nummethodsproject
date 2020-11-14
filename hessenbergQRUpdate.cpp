@@ -2,6 +2,7 @@
 #include "matrixFunctions.h"
 
 void hessenbergQRUpdate(double H[ARRAYSIZE][ARRAYSIZE]){
+	//This function takes in an upper Hessenberg matrix H and then runs a QR algorithm iteration on it
 	//takes A and decomposes it into N-1 Givens rotations whose product is Q
 	int i,j; // loop counters
 	double hessC[ARRAYSIZE-1];
