@@ -11,7 +11,7 @@ void buildQR(double A[ARRAYSIZE][ARRAYSIZE], double Q[ARRAYSIZE][ARRAYSIZE], dou
 	
 	
 	//( 2)  Reduction to Hessenberg form by applying the elimination method (analogous to Gaussian elimination with pivoting)
-	//  (upper Hessenberg form )
+	//  (calls function UpperHessenberg to update matrix A to upper Hessenberg form )
 	
 	
 	// (3) Taking an upper Hessenberg form matrix and solve for eigenvalues 
