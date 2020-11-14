@@ -1,11 +1,14 @@
-project: buildDynamicMatrix.o buildQR.o main.o
-	g++ -std=c++17 -o project buildDynamicMatrix.o buildQR.o main.o
+project: buildDynamicMatrix.o hessenbergQRUpdate.o gaussianHessenberg.o main.o
+	g++ -std=c++17 -o project buildDynamicMatrix.o hessenbergQRUpdate.o gaussianHessenberg.o main.o
 
 buildDynamicMatrix.o:
 	g++ -std=c++17 -c buildDynamicMatrix.cpp
 	
-buildQR.o:
-	g++ -std=c++17 -c buildQR.cpp
+hessenbergQRUpdate.o:
+	g++ -std=c++17 -c hessenbergQRUpdate.cpp
+	
+gaussianHessenberg.o:
+	g++ -std=c++17 -c gaussianHessenberg.cpp
 	
 main.o:
 	g++ -std=c++17 -c main.cpp
