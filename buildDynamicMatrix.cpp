@@ -8,7 +8,6 @@ void buildDynamicMatrix(double M[ARRAYSIZE][ARRAYSIZE], double K[ARRAYSIZE][ARRA
 	double L[ARRAYSIZE][ARRAYSIZE]; // lower triangular matrix
 	double U[ARRAYSIZE][ARRAYSIZE]; // upper triangular matrix
 	
-	double x[ARRAYSIZE]; // solution vector
 	double y[ARRAYSIZE]; // intermediate solution vector
 	
 	double sum; // dummy variable to keep track of sums in decomposition
