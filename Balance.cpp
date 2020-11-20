@@ -18,7 +18,7 @@ void balance(double A[ARRAYSIZE][ARRAYSIZE]){
 		final = 1;
 		//This for loop calculates the row and column norms 
 		for (i = 1; i<= ARRAYSIZE; i++){
-			row= column = 0.0
+			row= column = 0.0;
 			for (k =1; k<=ARRAYSIZE; k++)
 				if (k != i {
 					column += fabs(A[k][i]);
