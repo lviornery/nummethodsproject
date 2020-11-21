@@ -20,9 +20,9 @@ void balance(double A[ARRAYSIZE][ARRAYSIZE]){
 		for (i = 1; i<= ARRAYSIZE; i++){
 			row= column = 0.0;
 			for (k =1; k<=ARRAYSIZE; k++)
-				if (k != i {
+				if (k != i) {
 					column += fabs(A[k][i]);
-					row += fabs(A[i][j]);
+					row += fabs(A[i][k]);
 				}
 				    
 			//Non-zero case below
