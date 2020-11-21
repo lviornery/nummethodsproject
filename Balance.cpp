@@ -24,6 +24,7 @@ void balance(double A[ARRAYSIZE][ARRAYSIZE]){
 					column += fabs(A[k][i]);
 					row += fabs(A[i][j]);
 				}
+				    
 			//Non-zero case below
 			if (column && row) {
 				g = row/radix;
