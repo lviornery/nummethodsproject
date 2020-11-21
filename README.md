@@ -3,7 +3,7 @@ buildDynamicMatrix takes M and K matrices and returns M^-1 K
 
 gaussianHessenberg uses a Gaussian process to reduce a matrix to a Hessenberg matrix
 
-householderHessenberg uses a Householder process to reduce a matrix to a Hessenberg matrix (Need to fix some parts)
+householderHessenberg uses a Householder process to reduce a matrix to a Hessenberg matrix (syntax issues)
 
 arbQRUpdate uses a QR decomposition on a given arbitrary matrix A and then updates the matrix as A_k+1 = QA_kQ^T (Check if it works)
 
