@@ -5,7 +5,7 @@ gaussianHessenberg uses a Gaussian process to reduce a matrix to a Hessenberg ma
 
 householderHessenberg uses a Householder process to reduce a matrix to a Hessenberg matrix (syntax issues)
 
-arbQRUpdate uses a QR decomposition on a given arbitrary matrix A and then updates the matrix as A_k+1 = QA_kQ^T (Check if it works)
+arbQRUpdate uses a QR decomposition on a given arbitrary matrix A and then updates the matrix as A_k+1 = QA_kQ^T (once householderHessenberg syntax issues are fixed, it should work)
 
 hessenbergQRUpdate uses a QR decomposition on a given Hessenberg matrix H and then updates the matrix as H_k+1 = QH_kQ^T
 
