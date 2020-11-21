@@ -22,8 +22,10 @@ void householderHessenberg(double A[ARRAYSIZE][ARRAYSIZE]){
 		u = x/m;
 		if u(1) ==0
 			p = 1;
+		elseif u(1)> 0
+			p = 1;
 		else
-			p = sign(u(1)); //Need to fix this line (need to find if c++ has a similar sign function like MATLAB's)
+			p = -1; 
 		end
 		u(1) = u(1) +p*norm(u);
 		u = u/norm(u);
