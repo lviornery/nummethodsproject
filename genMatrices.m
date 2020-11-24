@@ -1,13 +1,16 @@
-ARRAYSIZE = 4;
+ARRAYSIZE = 300;
+condCoef = 1; %the higher this is, the lower the condition number
 mdiag = rand(ARRAYSIZE,1); % all positive numbers between 0 and 1
-mmat = diag(mdiag);
-kdiag = 5*rand(ARRAYSIZE,1); % all positive numbers between 0 and 5
-kmat = diag(kdiag);
-kod = 5*(rand(ARRAYSIZE,ARRAYSIZE)-.5); %off-diagonal elements of k are random
-kod = (kod+kod'); %make the k matrix symetric
-kod = kod - diag(diag(kod)); %set diagonal elements of off-diagonal matrix to 0
-kmat = kmat + kod;
+mmat = condCoef*diag(mdiag);
+kmat = rand(ARRAYSIZE,ARRAYSIZE)-.5; %off-diagonal elements of k are random between -5 and 5
+kmat = 5*(kmat'*kmat) + condCoef*eye(ARRAYSIZE); %make the k matrix symetric positive definite
 writematrix(mmat,'mmat.csv')
 writematrix(kmat,'kmat.csv')
-cond(inv(mmat)*kmat)
-eig(inv(mmat)*kmat)
+disp(['Condition is ' num2str(cond(inv(mmat)*kmat))]);
+tic
+    invm = inv(mmat);
+    evalm = invm*kmat;
+elapsed = 1e6*toc
+tic
+    evals = eig(evalm);
+elapsed = 1e6*toc

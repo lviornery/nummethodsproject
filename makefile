@@ -1,23 +1,23 @@
 project: buildDynamicMatrix.o hessenbergQRUpdate.o gaussianHessenberg.o balance.o readMatrices.o main.o
-	g++ -std=c++17 -o project buildDynamicMatrix.o hessenbergQRUpdate.o gaussianHessenberg.o balance.o readMatrices.o main.o
+	g++ -std=c++17 -O3 -o project buildDynamicMatrix.o hessenbergQRUpdate.o gaussianHessenberg.o balance.o readMatrices.o main.o
 
 buildDynamicMatrix.o:
-	g++ -std=c++17 -c buildDynamicMatrix.cpp
+	g++ -std=c++17 -c -O3 buildDynamicMatrix.cpp
 	
 hessenbergQRUpdate.o:
-	g++ -std=c++17 -c hessenbergQRUpdate.cpp
+	g++ -std=c++17 -c -O3 hessenbergQRUpdate.cpp
 	
 balance.o:
-	g++ -std=c++17 -c balance.cpp
+	g++ -std=c++17 -c -O3 balance.cpp
 	
 gaussianHessenberg.o:
-	g++ -std=c++17 -c gaussianHessenberg.cpp
+	g++ -std=c++17 -c -O3 gaussianHessenberg.cpp
 	
 readmatrices.o:
-	g++ -std=c++17 -c readmatrices.cpp
+	g++ -std=c++17 -c -O3 readmatrices.cpp
 	
 main.o:
-	g++ -std=c++17 -c main.cpp
+	g++ -std=c++17 -c -O3 main.cpp
 
 clean:
 	rm -f *.o

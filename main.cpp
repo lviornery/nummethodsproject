@@ -2,10 +2,11 @@
 #include <fstream>
 #include <iomanip>
 #include <math.h>
-#include <time.h>
+#include <chrono> 
 #include <stdio.h>
 #include "matrixFunctions.h"
 using namespace std;
+using namespace std::chrono;
 
 ofstream data_out("output.txt"); // output data
 
@@ -18,21 +19,18 @@ int main() {
 	double D[ARRAYSIZE][ARRAYSIZE];
 	
 	readMatrices(M,K);
+	auto start = high_resolution_clock::now();
+	//time building the dynamic matrix
 	buildDynamicMatrix(M,K,D);
+	auto stop = high_resolution_clock::now();
+	auto duration = duration_cast<microseconds>(stop - start);
+	cout << "Dynamic matrix build time :" << duration.count() << "us" << endl; 
+	start = high_resolution_clock::now();
+	//time eigenvalue finding
 	
-	/*gaussianHessenberg(D);
-	gaussianHessenberg(D);
-	gaussianHessenberg(D);
-	gaussianHessenberg(D);
-	gaussianHessenberg(D);
-	gaussianHessenberg(D);
-	gaussianHessenberg(D);
-	gaussianHessenberg(D);
-	gaussianHessenberg(D);
-	gaussianHessenberg(D);*/
-	
-	//write D to file
-	
+	stop = high_resolution_clock::now();
+	duration = duration_cast<microseconds>(stop - start);
+	cout << "Eigenvalue find time :" << duration.count() << "us" << endl; 
 	for(i=0;i<ARRAYSIZE;i++) {
 		for(j=0;j<ARRAYSIZE;j++) {
 			data_out<<M[i][j]<<'\t';
