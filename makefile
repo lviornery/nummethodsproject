@@ -1,5 +1,5 @@
-project: buildDynamicMatrix.o hessenbergQRUpdate.o gaussianHessenberg.o balance.o main.o
-	g++ -std=c++17 -o project buildDynamicMatrix.o hessenbergQRUpdate.o gaussianHessenberg.o main.o
+project: buildDynamicMatrix.o hessenbergQRUpdate.o gaussianHessenberg.o balance.o readMatrices.o main.o
+	g++ -std=c++17 -o project buildDynamicMatrix.o hessenbergQRUpdate.o gaussianHessenberg.o balance.o readMatrices.o main.o
 
 buildDynamicMatrix.o:
 	g++ -std=c++17 -c buildDynamicMatrix.cpp
@@ -12,6 +12,9 @@ balance.o:
 	
 gaussianHessenberg.o:
 	g++ -std=c++17 -c gaussianHessenberg.cpp
+	
+readmatrices.o:
+	g++ -std=c++17 -c readmatrices.cpp
 	
 main.o:
 	g++ -std=c++17 -c main.cpp
