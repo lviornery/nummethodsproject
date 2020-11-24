@@ -1,6 +1,8 @@
 #include <math.h>
 #include "matrixFunctions.h"
 
+using namespace std;
+
 void buildDynamicMatrix(double M[ARRAYSIZE][ARRAYSIZE], double K[ARRAYSIZE][ARRAYSIZE], double D[ARRAYSIZE][ARRAYSIZE]){
 	//takes M and K and calculates D = M^-1 K using the LU decomposition
 	int i,j,k,f; // loop counters
@@ -42,7 +44,6 @@ void buildDynamicMatrix(double M[ARRAYSIZE][ARRAYSIZE], double K[ARRAYSIZE][ARRA
 			U[i][j] = (M[i][j] - sum)/L[i][i];
 		}
 	}
-	
 	//calculate M^-1 K as a matrix whose columns are the solution vectors to the equation Mx=K_i
 	
 	for(i=0;i<ARRAYSIZE;i++) { //for each column of k
@@ -52,7 +53,7 @@ void buildDynamicMatrix(double M[ARRAYSIZE][ARRAYSIZE], double K[ARRAYSIZE][ARRA
 		y[0] = K[0][i]/L[0][0];
 		for(j=1;j<ARRAYSIZE;j++) {
 			sum = 0.;
-			for(k=0;k<i;k++) sum = sum + L[j][k]*y[k];
+			for(k=0;k<j;k++) sum = sum + L[j][k]*y[k];
 			y[j] = (K[j][i]-sum)/L[j][j];
 		}
 		
