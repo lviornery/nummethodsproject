@@ -4,7 +4,7 @@
 using namespace std;
 
 void buildDynamicMatrix(double M[ARRAYSIZE][ARRAYSIZE], double K[ARRAYSIZE][ARRAYSIZE], double D[ARRAYSIZE][ARRAYSIZE]){
-	//takes M and K and calculates D = M^-1 K using the LU decomposition
+	//This function takes two matrices M and K and calculates D = M^-1 K using the LU decomposition
 	int i,j,k,f; // loop counters
 	
 	double L[ARRAYSIZE][ARRAYSIZE]; // lower triangular matrix

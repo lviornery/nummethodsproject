@@ -4,11 +4,8 @@
 #define SQRDX 4.0
 
 void balance(double A[ARRAYSIZE][ARRAYSIZE]){
-	//This function takes in a matrix A and then outputs a balanced matrix with identical eigenvalues 
-	// (Reduces sensitivity of eigenvalues to rounding errors)
-	//Output: Matrix that is balanced in the norm by summing the absolute magnitudes of the matrix elements
+	//This function takes in a matrix A and then outputs a balanced matrix with identical eigenvalues. This reduces the sensitivity of the eigenvalues to rounding errors.
 	
-	//Need to work on commenting it more in detail 
 	int i, k, last;
 	double row, g, f, column, sum;
 	

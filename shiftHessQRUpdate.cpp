@@ -4,7 +4,7 @@
 using namespace std;
 
 void shiftHessQRUpdate(double H[ARRAYSIZE][ARRAYSIZE]){
-	//This function takes in am upper Hessenberg matrix H and applies a shift used to get faster eigenvalue convergence
+	//This function takes in am upper Hessenberg matrix H, applies a shift used to get faster eigenvalue convergence, and performs a QR algorithm iteration
 	
 	int i,j;
 	double subdiag, b, c, d, shift, eig1, eig2;
@@ -15,7 +15,7 @@ void shiftHessQRUpdate(double H[ARRAYSIZE][ARRAYSIZE]){
 			if (fabs(subdiag) > TOL){
 				break;
 			}
-			else {
+			else { //set the value of the subdiagonal element to zero if we actually don't need it any more
 				H[j][j-1] = 0.;
 			}
 		}
@@ -26,7 +26,7 @@ void shiftHessQRUpdate(double H[ARRAYSIZE][ARRAYSIZE]){
 		c = H[j-1][j-1]*H[j][j] - H[j-1][j]*H[j][j-1];
 		d = b*b-4.*c;
 		eig1 = eig2 = -b/2.;
-		//the submatrix may have complex eigenvalues; we address this by only using the real part.
+		//the submatrix may have complex eigenvalues; we address this by only using the real part. The actual matrix will never have complex eigenvalues.
 		if (d > 0) {
 			eig1 += sqrt(d)/2.;
 			eig2 -= sqrt(d)/2.;

@@ -3,8 +3,8 @@
 #include <sstream>
 #include <string>
 
-void readMatrices(double M[ARRAYSIZE][ARRAYSIZE], double K[ARRAYSIZE][ARRAYSIZE])
-{
+void readMatrices(double M[ARRAYSIZE][ARRAYSIZE], double K[ARRAYSIZE][ARRAYSIZE]) {
+	//this function reads mmat.csv and kmat.csv and imports the contents into the arrays M and K respectively
 	int i,j,k;
     std::stringstream line;
 	std::string value;
