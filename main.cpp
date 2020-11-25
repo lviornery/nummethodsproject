@@ -20,6 +20,12 @@ int main() {
 	double D[ARRAYSIZE][ARRAYSIZE];
 	double eig[ARRAYSIZE];
 	
+	char method;
+	
+	cout << "Select eigenvalue finding method" << endl << "a: basic QR algorithm" << endl << "b: basic Hessenberg QR algorithm" << endl << "c: Hessenberg QR algorithm with shifts" << endl;
+	
+	cin >> method;
+	
 	readMatrices(M,K);
 	auto start = high_resolution_clock::now();
 	//time building the dynamic matrix
@@ -28,15 +34,16 @@ int main() {
 	//---
 	auto stop = high_resolution_clock::now();
 	auto duration = duration_cast<microseconds>(stop - start);
-	cout << "Dynamic matrix build time :" << duration.count() << "us" << endl; 
+	cout << "Dynamic matrix build time: " << duration.count() << "us" << endl; 
 	start = high_resolution_clock::now();
 	//time eigenvalue finding
 	//---
 	//balance the dynamic matrix to reduce rounding errors
 	balance(D);
-	//comment the below out if using arbQRUpdate
-	//convert the matrix to upper Hessenberg form 
-	gaussianHessenberg(D);
+	//convert the matrix to upper Hessenberg form if not using the basic QR algorithm
+	if (method != 'a') {
+		gaussianHessenberg(D);
+	}
 	//initialize eig
 	for (i=0;i<ARRAYSIZE;i++) {
 		eig[i] = D[i][i];
@@ -46,9 +53,22 @@ int main() {
 	while (!convergence) {
 		k++;
 		//do a QR iteration - we can use arbQRUpdate, or the Hessenberg version with or without shifts
-		shiftHessQRUpdate(D);
-		//hessenbergQRUpdate(D);
-		//arbQRUpdate(D)
+		if (method == 'a') {
+			arbQRUpdate(D);
+			for(i=0;i<ARRAYSIZE;i++) {
+				for(j=0;j<ARRAYSIZE;j++) {
+					cout<<D[i][j]<<'\t';
+				}
+				cout << endl;
+			}
+			cout << endl;
+		}
+		else if (method == 'b') {
+			hessenbergQRUpdate(D);
+		}
+		else {
+			shiftHessQRUpdate(D);
+		}
 		//assume we've converged
 		convergence = true;
 		for (i=0;i<ARRAYSIZE;i++) {
@@ -64,8 +84,8 @@ int main() {
 	//---
 	stop = high_resolution_clock::now();
 	duration = duration_cast<microseconds>(stop - start);
-	cout << "Eigenvalue find time :" << duration.count() << "us" << endl; 
-	cout << "QR Algorithm iterations :" << k << endl; 
+	cout << "Eigenvalue find time: " << duration.count() << "us" << endl; 
+	cout << "QR Algorithm iterations: " << k << endl; 
 	for(i=0;i<ARRAYSIZE;i++) {
 		data_out<<eig[i]<<endl;
 	}

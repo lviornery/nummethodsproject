@@ -1,4 +1,4 @@
-ARRAYSIZE = 300;
+ARRAYSIZE = 10;
 condCoef = 1; %the higher this is, the lower the condition number
 mdiag = rand(ARRAYSIZE,1); % all positive numbers between 0 and 1
 mmat = condCoef*diag(mdiag);
