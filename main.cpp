@@ -1,9 +1,9 @@
 #include <iostream>
+#include <stdio.h>
 #include <fstream>
 #include <iomanip>
 #include <math.h>
 #include <chrono> 
-#include <stdio.h>
 #include "matrixFunctions.h"
 using namespace std;
 using namespace std::chrono;
@@ -34,6 +34,7 @@ int main() {
 	//---
 	//balance the dynamic matrix to reduce rounding errors
 	balance(D);
+	//comment the below out if using arbQRUpdate
 	//convert the matrix to upper Hessenberg form 
 	gaussianHessenberg(D);
 	//initialize eig
@@ -44,9 +45,10 @@ int main() {
 	//While our eigenvalues haven't converged
 	while (!convergence) {
 		k++;
-		//do a QR iteration - we can either use shifts or not
+		//do a QR iteration - we can use arbQRUpdate, or the Hessenberg version with or without shifts
 		shiftHessQRUpdate(D);
 		//hessenbergQRUpdate(D);
+		//arbQRUpdate(D)
 		//assume we've converged
 		convergence = true;
 		for (i=0;i<ARRAYSIZE;i++) {

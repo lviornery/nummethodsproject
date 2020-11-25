@@ -1,8 +1,6 @@
 #include <math.h>
 #include "matrixFunctions.h"
 
-using namespace std;
-
 void shiftHessQRUpdate(double H[ARRAYSIZE][ARRAYSIZE]){
 	//This function takes in am upper Hessenberg matrix H, applies a shift used to get faster eigenvalue convergence, and performs a QR algorithm iteration
 	
