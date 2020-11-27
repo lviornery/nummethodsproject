@@ -1,7 +1,5 @@
 #include <math.h>
 #include "matrixFunctions.h"
-#include <iostream>
-#include <stdio.h>
 #define SIGN(g) (g < 0 ? -1. : 1.)
 
 void arbQRUpdate(double A[ARRAYSIZE][ARRAYSIZE]){
@@ -10,104 +8,70 @@ void arbQRUpdate(double A[ARRAYSIZE][ARRAYSIZE]){
 	//This function takes in a matrix A and turns it into a Hessenberg matrix using Householder reflectors
 	int i,j,k,l; //Counters for iterations below
 	double normx, normu, val;
-	double x[ARRAYSIZE];
-	double u[ARRAYSIZE];
+	//P holds the u Householder reflectors
 	double P[ARRAYSIZE][ARRAYSIZE];
-	double Q[ARRAYSIZE][ARRAYSIZE];
 	double tempM[ARRAYSIZE][ARRAYSIZE];
-	
-	for (i=0;i<ARRAYSIZE;i++) {
-		for (j=0;j<ARRAYSIZE;j++) {
-			//Q starts as an identity matrix
-			Q[i][j] = (i==j ? 1. : 0.);
-		}
-	}
 	
 	for (i=0;i<ARRAYSIZE;i++) {
 		//initialize val
 		val = 0;
-		//skip any entries above the diagonal
-		for (j=0;j<i;j++) {
-			x[j] = 0.;
-			u[j] = 0.;
-		}
-		//save the jth entry of the ith column of A in x and add x_j^2 to the norm counter
+		//The ith column of A will be x. Add x_j^2 to the norm counter
 		for (j=i;j<ARRAYSIZE;j++) {
-			x[j] = A[j][i];
-			val += pow(x[j],2);
+			val += pow(A[j][i],2);
 		}
 		//norm of x = sqrt(sum(x_j^2))
 		normx = sqrt(val);
 		//norm of u is like norm of x with some extra stuff tacked on
-		normu = sqrt(val + 2.*SIGN(x[i])*normx*x[i] + val);
+		normu = sqrt(val + 2.*SIGN(A[i][i])*normx*A[i][i] + val);
 		//the top element of u should be the ith element of x plus the sign of the ith element of x times the norm of x - this is the extra stuff we factored into our norm of u above
-		u[i] = (x[i] + SIGN(x[i])*normx)/normu;
+		for (j=0;j<i;j++) {
+			P[j][i] = 0.;
+		}
+		P[i][i] = (A[i][i] + SIGN(A[i][i])*normx)/normu;
 		//the other elements of u should just be the elements of x over the norm of u
 		for (j=i+1;j<ARRAYSIZE;j++) {
-			u[j] = x[j]/normu;
+			P[j][i] = A[j][i]/normu;
 		}
-		//the elements of P above the diagonal are just the identity matrix
-		for (j=0;j<i;j++) {
-			for (k=j+1;k<ARRAYSIZE;k++) {
-				P[j][k] = P[k][j] = 0.;
-			}
-			P[j][j] = 1.;
-		}
-		//the other elements of P are given by I - 2uu'
-		//the matrix is symmetric so we can do this the clever way
-		for (j=i;j<ARRAYSIZE;j++) {
-			for (k=j+1;k<ARRAYSIZE;k++) {
-				P[j][k] = P[k][j] = -2.*u[j]*u[k];
-			}
-			P[j][j] = 1. - 2.*u[j]*u[j];
-		}
-		//multiply Q by P to get the new Q
-		for (j=0;j<ARRAYSIZE;j++) {
-			val = 0.;
-			for (k=0;k<ARRAYSIZE;k++) {
+		//Calculate the new A
+		//the jth row kth column will get itself minus 2*[(the kth element of u)*(the lth element of u)*(the lth row kth column element of A)]
+		//we calculate the quantity in brackets below
+		for (j=0;j<ARRAYSIZE;j++) { //jth row
+			for (k=0;k<ARRAYSIZE;k++) { //kth column
 				val = 0.;
 				for (l=0;l<ARRAYSIZE;l++) {
-					val += Q[j][l]*P[l][k];
+					val += P[j][i]*P[l][i]*A[l][k]; 
 				}
-				tempM[j][k] = val;
+				tempM[j][k] = 2.*val;
 			}
 		}
-		//Store the multiplication result in Q
-		for (j=0;j<ARRAYSIZE;j++) {
-			for (k = 0;k<ARRAYSIZE;k++) {
-				Q[j][k] = tempM[j][k];
-			}
-		}
-		//Calculate the new R
+		//And then modify A
 		for (j=0;j<ARRAYSIZE;j++) {
 			for (k=0;k<ARRAYSIZE;k++) {
-				val = 0.;
-				for (l=0;l<ARRAYSIZE;l++) {
-					val += P[j][l]*A[l][k];
+				if (k<=i && j > k) {
+					A[j][k] = 0.;
 				}
-				tempM[j][k] = val;
-			}
-		}
-		//Store the new R in A
-		for (j=0;j<ARRAYSIZE;j++) {
-			for (k=0;k<ARRAYSIZE;k++) {
-				A[j][k] = tempM[j][k];
+				else {
+					A[j][k] -= tempM[j][k];
+				}
 			}
 		}
 	}
 	//Perform a QR algorithm iteration by setting A = RQ
-	for (i=0;i<ARRAYSIZE;i++) {
-		for (j = 0;j<ARRAYSIZE;j++) {
-			val = 0.;
-			for (k=0;k<ARRAYSIZE;k++) {
-				val += A[i][k]*Q[k][j];
+	//the jth row kth column will get itself minus 2*[(the kth element of u)*(the lth element of u)*(the lth row kth column element of A)]
+	for (i=0;i<ARRAYSIZE;i++) { //for each u in P
+		for (j = 0;j<ARRAYSIZE;j++) { //for each row
+			for (k=0;k<ARRAYSIZE;k++) { //for each column
+				val = 0.;
+				for (l=0;l<ARRAYSIZE;l++) {
+					val += P[k][i]*P[l][i]*A[j][l]; 
+				}
+				tempM[j][k] = 2.*val;
 			}
-			tempM[i][j] = val;
 		}
-	}
-	for (i=0;i<ARRAYSIZE;i++) {
 		for (j=0;j<ARRAYSIZE;j++) {
-			A[i][j] = tempM[i][j];
+			for (k=0;k<ARRAYSIZE;k++) {
+				A[j][k] -= tempM[j][k];
+			}
 		}
 	}
 }

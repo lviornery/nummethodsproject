@@ -39,7 +39,7 @@ int main() {
 	//time eigenvalue finding
 	//---
 	//balance the dynamic matrix to reduce rounding errors
-	balance(D);
+	//balance(D);
 	//convert the matrix to upper Hessenberg form if not using the basic QR algorithm
 	if (method != 'a') {
 		gaussianHessenberg(D);
@@ -55,13 +55,6 @@ int main() {
 		//do a QR iteration - we can use arbQRUpdate, or the Hessenberg version with or without shifts
 		if (method == 'a') {
 			arbQRUpdate(D);
-			for(i=0;i<ARRAYSIZE;i++) {
-				for(j=0;j<ARRAYSIZE;j++) {
-					cout<<D[i][j]<<'\t';
-				}
-				cout << endl;
-			}
-			cout << endl;
 		}
 		else if (method == 'b') {
 			hessenbergQRUpdate(D);
