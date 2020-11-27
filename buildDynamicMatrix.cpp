@@ -42,7 +42,7 @@ void buildDynamicMatrix(double M[ARRAYSIZE][ARRAYSIZE], double K[ARRAYSIZE][ARRA
 			U[i][j] = (M[i][j] - sum)/L[i][i];
 		}
 	}
-	//calculate M^-1 K as a matrix whose columns are the solution vectors to the equation Mx=K_i
+	//calculate M^-1 K as a matrix whose columns are the solution vectors to the equation Mx=K_i 
 	
 	for(i=0;i<ARRAYSIZE;i++) { //for each column of k
 	
